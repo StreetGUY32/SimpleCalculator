@@ -1,4 +1,4 @@
-## SimpleCalculator
+## SimpleCalculator in Expo (React Native)
 
 - I've made a simple calculator with basic functionality in expo (react-native) 
 - It contaons the functions like addition, subtraction, multiplication, division and clear screen!
