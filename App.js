@@ -20,11 +20,24 @@ const handlePress = value => {
     } 
     else if (value === '=') 
     {
-      setOutput(eval(input).toString());
-    } 
+      if (output) 
+      {
+        setInput(eval(output));
+      } 
+      else 
+      {
+        setOutput(eval(input).toString());
+
+      }
+    }
+    else if (value === 'del') 
+    {
+      setInput(input.slice(0, -1));
+    }
     else 
     {
       setInput(input + value);
+      setOutput('');
     }
 
 };
@@ -32,12 +45,20 @@ const handlePress = value => {
   
   return (
     <View style={styles.container}>
+
       <View style={styles.input}>
+
         <Text style={styles.inputText}>{input}</Text>
+
       </View>
+
       <View style={styles.output}>
+
         <Text style={styles.outputText}>{output}</Text>
+
       </View>
+
+
       <View style={styles.buttons}>
         <View style={styles.numbers}>
 
@@ -91,12 +112,12 @@ const handlePress = value => {
 
 
         <View style={[styles.numberRow]}>
-          <TouchableOpacity style={styles.btn} onPress={() => handlePress('.')}>
-            <Text style={styles.btnText}>.</Text>
-          </TouchableOpacity>
-          
           <TouchableOpacity style={styles.btn} onPress={() => handlePress('0')}>
             <Text style={styles.btnText}>0</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.btn} onPress={() => handlePress('.')}>
+            <Text style={styles.btnText}>.</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.btn} onPress={() => handlePress('=')}>
@@ -109,26 +130,33 @@ const handlePress = value => {
 
         <View style={[styles.operations]}>
 
+          <View style={{flex:1,flexDirection:'column'}}>
 
-          <TouchableOpacity style={[styles.btn,{backgroundColor:'orange'}]} onPress={() => handlePress('C')}>
-            <Text style={styles.btnText}>C</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={[styles.OpBtn]} onPress={() => handlePress('C')}>
+              <Text style={styles.btnTextOp}>AC</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.btn,{backgroundColor:'orange'}]} onPress={() => handlePress('/')}>
-            <Text style={styles.btnText}>/</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={[styles.OpBtn]} onPress={() => handlePress('del')}>
+              <Text style={styles.btnTextOp}>C</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.btn,{backgroundColor:'orange'}]} onPress={() => handlePress('*')}>
-            <Text style={styles.btnText}>*</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={[styles.OpBtn]} onPress={() => handlePress('/')}>
+              <Text style={styles.btnTextOp}>÷</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.btn,{backgroundColor:'orange'}]} onPress={() => handlePress('-')}>
-            <Text style={styles.btnText}>-</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={[styles.OpBtn]} onPress={() => handlePress('*')}>
+              <Text style={styles.btnTextOp}>X</Text>
+            </TouchableOpacity>
 
-          <TouchableOpacity style={[styles.btn,{backgroundColor:'orange'}]} onPress={() => handlePress('+')}>
-            <Text style={styles.btnText}>+</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={[styles.OpBtn]} onPress={() => handlePress('-')}>
+              <Text style={styles.btnTextOp}>-</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={[styles.OpBtn]} onPress={() => handlePress('+')}>
+              <Text style={styles.btnTextOp}>+</Text>
+            </TouchableOpacity>
+
+          </View>
 
         </View>
 
@@ -188,10 +216,6 @@ const styles = StyleSheet.create({
    {
     flex: 7,
     flexDirection: 'row',
-    // width:'100%',
-    // height:height*0.1,
-    // paddingBottom:height*0.02,
-
   },
 
   numbers: 
@@ -205,13 +229,10 @@ const styles = StyleSheet.create({
   operations: 
   {
     flex: 1,
-    justifyContent: 'space-between',
-    paddingLeft:width*0.01,
-    padding: height*0.03,
+    paddingLeft:width*0.00,
+    padding: height*0.04,
     height:height*0.64,
-    // marginVertical:height*0.02,
-    marginTop:height*0.03,
-    // marginBottom:height*0.03,
+    marginTop:height*0.019,
   },
 
   btn: 
@@ -221,15 +242,33 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     justifyContent: 'center',
     margin:height*0.01,
-    // borderColor: 'white',
-    // borderWidth: 1,
     borderRadius:100,
     backgroundColor: '#434343',
+  },
+
+  OpBtn: 
+  {
+    flex: 1,
+    alignItems: 'center',
+    // alignSelf: 'stretch',
+    justifyContent: 'center',
+    margin:height*0.01,
+    borderRadius:50,
+    backgroundColor: 'orange',
+    height:height*0.1,
+    width:width*0.14,
+
   },
 
   btnText: 
   {
     fontSize: height*0.06,
+    color: 'white',
+  },
+
+  btnTextOp:
+  {
+    fontSize: height*0.04,
     color: 'white',
   },
 
